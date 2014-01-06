@@ -1,0 +1,18 @@
+README for Enemies of Carlotta, a mailing list manager
+by Lars Wirzenius, liw@iki.fi
+
+
+Enemies of Carlotta is a simple mailing list manager that mimicks the
+ezmlm (http://www.ezmlm.org/) commands. Please see the manual page
+or the home page (http://liw.iki.fi/liw/eoc/) for documentation, and
+join the mailing list (send mail to eoc-subscribe@liw.iki.fi).
+
+You need Python 2.3 or newer, and lockfile (from procmail). If you are
+willing to live without having headers encoded with MIME, Python 2.1 or
+2.2 should also work.
+
+To install, edit Makefile, the variables bindir and man1dir, and
+then run "make install" as root.
+
+Enemies of Carlotta is licensed using the GNU General Public License,
+version 2.
