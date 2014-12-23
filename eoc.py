@@ -8,7 +8,7 @@ VERSION = "1.2.6"
 PLUGIN_INTERFACE_VERSION = "1"
 
 import getopt
-import md5
+import hashlib
 import os
 import shutil
 import smtplib
@@ -78,7 +78,7 @@ COMMANDS = SIMPLE_COMMANDS + SUB_COMMANDS + HASH_COMMANDS
 
 
 def md5sum_as_hex(s):
-    return md5.new(s).hexdigest()
+    return hashlib.md5(s).hexdigest()
 
 
 def forkexec(argv, text):
