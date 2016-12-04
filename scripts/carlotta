@@ -3,4 +3,4 @@
 import carlotta.carlotta
 
 if __name__=='__main__':
-	carlotta.main(sys.argv[1:])
+	carlotta.carlotta.main(sys.argv[1:])
