@@ -1,2 +1,4 @@
 *.pyc
 build/
+dist/
+Entropy_of_Carlotta.egg-info/
