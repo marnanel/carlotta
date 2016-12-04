@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(name='Entropy of Carlotta',
 		version='0.1',
@@ -10,4 +10,7 @@ setup(name='Entropy of Carlotta',
 		url='https://github.com/tthurman/carlotta',
 		packages=['carlotta'],
 		scripts=['scripts/carlotta'],
+		install_requires=[
+			'qmqp',
+		],
      )
