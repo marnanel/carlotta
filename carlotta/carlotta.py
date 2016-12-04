@@ -23,9 +23,6 @@ except ImportError:
     have_email_module = 0
 import imp
 
-import qmqp
-
-
 # The following values will be overriden by "make install".
 TEMPLATE_DIRS = ["./templates"]
 DOTDIR = "dot-eoc"
@@ -212,11 +209,10 @@ class AddressParser:
 class MailingListManager:
 
     def __init__(self, dotdir, sendmail="/usr/sbin/sendmail", lists=[],
-                 smtp_server=None, qmqp_server=None):
+                 smtp_server=None):
         self.dotdir = dotdir
         self.sendmail = sendmail
         self.smtp_server = smtp_server
-        self.qmqp_server = qmqp_server
 
         self.make_dotdir()
         self.secret = self.make_and_read_secret()
@@ -429,14 +425,6 @@ class MailingListManager:
                     smtp.quit()
                 except:
                     error("Error sending SMTP mail, mail probably not sent")
-                    sys.exit(1)
-            elif self.qmqp_server:
-                try:
-                    q = qmqp.QMQP(self.qmqp_server)
-                    q.sendmail(envelope_sender, recipients, text)
-                    q.quit()
-                except:
-                    error("Error sending QMQP mail, mail probably not sent")
                     sys.exit(1)
             else:
                 status = forkexec([self.sendmail, "-oi", "-f", 
@@ -1527,7 +1515,6 @@ def main(args):
                                     "domain=",
                                     "sendmail=",
                                     "smtp-server=",
-                                    "qmqp-server=",
                                     "quiet",
                                     "moderate",
                                     "post",
@@ -1566,7 +1553,6 @@ def main(args):
     domain = None
     sendmail = "/usr/sbin/sendmail"
     smtp_server = None
-    qmqp_server = None
     moderate = 0
     post = 0
     sender = None
@@ -1600,8 +1586,6 @@ def main(args):
             sendmail = arg
         elif opt == "--smtp-server":
             smtp_server = arg
-        elif opt == "--qmqp-server":
-            qmqp_server = arg
         elif opt == "--sender":
             sender = arg
         elif opt == "--recipient":
@@ -1644,8 +1628,7 @@ def main(args):
         set_environ(environ)
 
     mlm = MailingListManager(DOTDIR, sendmail=sendmail, 
-                             smtp_server=smtp_server,
-                             qmqp_server=qmqp_server)
+                             smtp_server=smtp_server)
     if no_act:
         mlm.send_mail = no_act_send_mail
 

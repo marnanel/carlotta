@@ -11,6 +11,5 @@ setup(name='Entropy of Carlotta',
 		packages=['carlotta'],
 		scripts=['scripts/carlotta'],
 		install_requires=[
-			'qmqp',
 		],
      )
