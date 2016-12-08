@@ -9,6 +9,9 @@ setup(name='Entropy of Carlotta',
 		author_email='marnanel@thurman.org.uk',
 		url='https://github.com/tthurman/carlotta',
 		packages=['carlotta'],
+                package_data={
+                        'carlotta': ['templates/*'],
+                },
 		scripts=['scripts/carlotta'],
 		install_requires=[
 		],
