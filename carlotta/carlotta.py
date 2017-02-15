@@ -23,8 +23,7 @@ except ImportError:
     have_email_module = 0
 import imp
 
-# The following values will be overriden by "make install".
-TEMPLATE_DIRS = ["./templates"]
+# DOTDIR is obsolescent, and will go away soon
 DOTDIR = "dot-eoc"
 
 
@@ -555,17 +554,12 @@ class MailingList:
         if not dict.has_key("list"):
             dict["list"] = self.name
 
-        for dir in [os.path.join(self.dirname, "templates")] + TEMPLATE_DIRS:
-            pathname = os.path.join(dir, template_name_lang)
-            if not os.path.exists(pathname):
-                pathname = os.path.join(dir, template_name)
-            if os.path.exists(pathname):
-                f = open(pathname, "r")
-                data = f.read()
-                f.close()
-                return data % dict
+        raw_template = pkgutil.get_data(PACKAGE_NAME, template_name_lang)
 
-        raise MissingTemplate(template_name)
+        if raw_template is None:
+                raise MissingTemplate(template_name)
+
+        return raw_template % dict
 
     def send_template(self, envelope_sender, sender, recipients,
                       template_name, dict):
